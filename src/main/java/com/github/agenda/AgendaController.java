@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("agendas")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AgendaController {
 
 	private final AgendaService service;
-
-	@Autowired
-	public AgendaController(AgendaService service) {
-		this.service = service;
-	}
 
 	@GetMapping
 	public List<Agenda> listar() {
