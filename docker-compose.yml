@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  agenda.app:
+    build: 
+      context: .
+    image: agenda-mvn
+    container_name: "agenda.app"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - agenda.mongodb
+    links:
+      - agenda.mongodb
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://agenda.mongodb:27017/crud-agenda
+    networks:
+      - app-network
+
+  agenda.mongodb:
+    image: mongo:3.6
+    container_name: "agenda.mongodb"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo.agenda:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo.agenda:
